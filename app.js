@@ -1,9 +1,16 @@
-// pick randomly for the cpu rock, paper, scissors
-  // pick randomly a value, assign value to rock, paper, scissors
-// prompt user to enter selection
-// compare selection to cpu
-// declare winner
-// play game 5 times
+const buttons = document.querySelectorAll("button");
+const playerSelection = document.querySelector("#playerchoice");
+const cpuSelection = document.querySelector("#cpuchoice");
+const results = document.querySelector("#results");
+const points = document.querySelector("#points");
+
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    playerChoice = button.id;
+    playerSelection.textContent = "You chose: " + playerChoice;
+    playGame();
+  })
+})
 
 
 // Declare Variables
@@ -12,9 +19,9 @@ let cpuPoints = 0;
 
 
 function winner(){
-  console.log("You Win");
+  results.textContent = "You Win";
   playerPoints++;
-  console.log(`You have ${playerPoints} point(s) and the computer has ${cpuPoints} point(s)`);
+  points.textContent = `You have ${playerPoints} point(s) and the computer has ${cpuPoints} point(s)`;
 }
 
 // pick randomly a value 0 - 2
@@ -45,15 +52,12 @@ function playGame(){
   }
   
   console.log(selection);
-  
-  // Prompt Player
-  let playerChoice = prompt("Enter rock, paper or scissors");
-  // let pointMessage = (`You have ${playerPoints} point(s) and the computer has ${cpuPoints} point(s)`);
+  cpuSelection.textContent = "The CPU chose: " + selection;
   
   // Determine point allocation
   if (selection === playerChoice){
-    console.log("Tie");
-    console.log(`You have ${playerPoints} point(s) and the computer has ${cpuPoints} point(s)`);
+    results.textContent = "Tie";
+    points.textContent = `You have ${playerPoints} point(s) and the computer has ${cpuPoints} point(s)`;
   }
   else if(playerChoice === "rock" && selection === "scissors"){
     winner();
@@ -65,15 +69,24 @@ function playGame(){
     winner();
   }
   else {
-    console.log("You lose");
+    results.textContent = "You lose";
     cpuPoints++;
-    console.log(`You have ${playerPoints} point(s) and the computer has ${cpuPoints} point(s)`);
+    points.textContent = `You have ${playerPoints} point(s) and the computer has ${cpuPoints} point(s)`;
+  }
+
+  if (playerPoints === 5){
+    results.textContent = "You win with 5 points!  Good job!"
+    playerPoints = 0;
+    cpuPoints = 0;
+
+
+  }
+  else if (cpuPoints === 5){
+    results.textContent = "You lose to the CPU, how unlucky!"
+    cpuPoints = 0;
+    playerPoints = 0;
   }
   
 }
 
-playGame();
-playGame();
-playGame();
-playGame();
-playGame();
+
